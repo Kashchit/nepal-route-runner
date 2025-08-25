@@ -19,13 +19,13 @@ interface RouteMapProps {
   routes: Route[];
   selectedRoute: string | null;
   onRouteSelect: (routeId: string) => void;
-  mapboxToken?: string;
+  maptilerToken?: string;
 }
 
-export const RouteMap = ({ routes, selectedRoute, onRouteSelect, mapboxToken }: RouteMapProps) => {
+export const RouteMap = ({ routes, selectedRoute, onRouteSelect, maptilerToken }: RouteMapProps) => {
   const mapContainer = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState<any>(null);
-  const [showTokenInput, setShowTokenInput] = useState(!mapboxToken);
+  const [showTokenInput, setShowTokenInput] = useState(!maptilerToken);
   const [tokenInput, setTokenInput] = useState("");
 
   // Mock coordinates for Kathmandu routes
@@ -80,7 +80,7 @@ export const RouteMap = ({ routes, selectedRoute, onRouteSelect, mapboxToken }: 
   };
 
   const initializeMap = (token: string) => {
-    // Mock map initialization - in a real app this would use Mapbox GL JS
+    // Mock map initialization - in a real app this would use Maptiler GL JS
     console.log("Initializing map with token:", token);
     setMap({ initialized: true });
   };
@@ -89,15 +89,15 @@ export const RouteMap = ({ routes, selectedRoute, onRouteSelect, mapboxToken }: 
     return (
       <Card className="card-elevated p-6 text-center">
         <MapPin className="h-12 w-12 text-primary mx-auto mb-4" />
-        <h3 className="text-lg font-semibold text-foreground mb-2">Mapbox Token Required</h3>
+        <h3 className="text-lg font-semibold text-foreground mb-2">Maptiler Token Required</h3>
         <p className="text-muted-foreground mb-4 text-sm">
-          To display interactive maps, please add your Mapbox public token.
-          Get one from <a href="https://mapbox.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">mapbox.com</a>
+          To display interactive maps, please add your Maptiler API key.
+          Get one from <a href="https://maptiler.com" target="_blank" rel="noopener noreferrer" className="text-primary underline">maptiler.com</a>
         </p>
         <div className="space-y-3">
           <input
             type="text"
-            placeholder="Enter your Mapbox public token"
+            placeholder="Enter your Maptiler API key"
             value={tokenInput}
             onChange={(e) => setTokenInput(e.target.value)}
             className="w-full px-3 py-2 bg-background border border-border rounded-lg text-sm"
