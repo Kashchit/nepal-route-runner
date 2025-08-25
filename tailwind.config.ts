@@ -52,6 +52,13 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				// Nepal-inspired color palette
+				nepal: {
+					green: 'hsl(var(--nepal-green))',
+					purple: 'hsl(var(--nepal-purple))',
+					yellow: 'hsl(var(--nepal-yellow))',
+					orange: 'hsl(var(--nepal-orange))'
+				},
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
@@ -62,6 +69,20 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				}
+			},
+			backgroundImage: {
+				'gradient-hero': 'var(--gradient-hero)',
+				'gradient-card': 'var(--gradient-card)',
+				'gradient-primary': 'var(--gradient-primary)'
+			},
+			boxShadow: {
+				'soft': 'var(--shadow-soft)',
+				'card': 'var(--shadow-card)',
+				'primary': 'var(--shadow-primary)'
+			},
+			transitionTimingFunction: {
+				'smooth': 'cubic-bezier(0.4, 0, 0.2, 1)',
+				'bounce': 'cubic-bezier(0.68, -0.55, 0.265, 1.55)'
 			},
 			borderRadius: {
 				lg: 'var(--radius)',
