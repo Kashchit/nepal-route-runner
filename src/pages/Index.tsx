@@ -3,6 +3,8 @@ import { MobileHeader } from "@/components/ui/mobile-header";
 import { Button } from "@/components/ui/button";
 import { StatCard } from "@/components/ui/stat-card";
 import { RouteCard } from "@/components/ui/route-card";
+import { CalendarOverlay } from "@/components/ui/calendar-overlay";
+import { RouteMap } from "@/components/ui/route-map";
 import { DistrictTabs } from "@/components/leaderboard/district-tabs";
 import { LiveStats } from "@/components/tracking/live-stats";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -15,7 +17,8 @@ import {
   TrendingUp, 
   Users,
   Mountain,
-  Flag
+  Flag,
+  Calendar
 } from "lucide-react";
 import heroImage from "@/assets/hero-nepal-trail.jpg";
 
@@ -24,6 +27,8 @@ const Index = () => {
   const [selectedDistrict, setSelectedDistrict] = useState("Kathmandu");
   const [isTracking, setIsTracking] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const [selectedRoute, setSelectedRoute] = useState<string | null>(null);
 
   // Mock data for districts and leaderboards
   const districts = ["Kathmandu", "Pokhara", "Chitwan", "Lalitpur"];
@@ -126,10 +131,20 @@ const Index = () => {
           <p className="text-muted-foreground mb-6">
             Track your runs through the beautiful landscapes of Nepal. From mountain trails to heritage sites.
           </p>
-          <Button className="btn-primary">
-            <MapPin className="h-4 w-4 mr-2" />
-            Find Routes Near Me
-          </Button>
+          <div className="flex gap-3">
+            <Button className="btn-primary flex-1">
+              <MapPin className="h-4 w-4 mr-2" />
+              Find Routes Near Me
+            </Button>
+            <Button 
+              variant="outline" 
+              size="icon"
+              onClick={() => setIsCalendarOpen(true)}
+              className="border-primary/30 hover:bg-primary/10"
+            >
+              <Calendar className="h-4 w-4" />
+            </Button>
+          </div>
         </div>
       </div>
 
@@ -176,18 +191,34 @@ const Index = () => {
   const TrackTab = () => (
     <div className="space-y-6">
       <div className="text-center mb-6">
-        <h2 className="text-2xl font-bold text-foreground mb-2">Track Your Run</h2>
-        <p className="text-muted-foreground">Stay motivated and track your progress</p>
+        <h2 className="text-2xl font-bold text-foreground mb-2">Explore Routes</h2>
+        <p className="text-muted-foreground">Discover popular running routes in Nepal</p>
       </div>
 
-      <LiveStats
-        isRunning={isTracking}
-        isPaused={isPaused}
-        onStart={handleStartRun}
-        onPause={handlePauseRun}
-        onStop={handleStopRun}
-        onPhoto={() => console.log("Take photo")}
+      <RouteMap
+        routes={[]}
+        selectedRoute={selectedRoute}
+        onRouteSelect={(routeId) => {
+          setSelectedRoute(routeId);
+          console.log("Selected route:", routeId);
+        }}
       />
+
+      {selectedRoute && (
+        <div className="space-y-4">
+          <div className="border-t border-border pt-4">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Start Your Run</h3>
+            <LiveStats
+              isRunning={isTracking}
+              isPaused={isPaused}
+              onStart={handleStartRun}
+              onPause={handlePauseRun}
+              onStop={handleStopRun}
+              onPhoto={() => console.log("Take photo")}
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 
@@ -241,11 +272,16 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <CalendarOverlay 
+        isOpen={isCalendarOpen} 
+        onClose={() => setIsCalendarOpen(false)} 
+      />
+      
       <div className="mobile-container pb-20">
         <MobileHeader 
           title={
             activeTab === "home" ? "Run Nepal" :
-            activeTab === "track" ? "Track Run" :
+            activeTab === "track" ? "Explore Routes" :
             activeTab === "leaderboard" ? "Leaderboards" :
             "Profile"
           }
