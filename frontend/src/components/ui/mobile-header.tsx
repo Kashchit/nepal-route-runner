@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, Bell, User } from "lucide-react";
+import { Menu, Bell, User, LogOut } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface MobileHeaderProps {
@@ -7,6 +7,8 @@ interface MobileHeaderProps {
   showBack?: boolean;
   onMenuClick?: () => void;
   onProfileClick?: () => void;
+  onLogout?: () => void;
+  onSideNavClick?: () => void;
   className?: string;
 }
 
@@ -15,6 +17,8 @@ export function MobileHeader({
   showBack = false, 
   onMenuClick, 
   onProfileClick,
+  onLogout,
+  onSideNavClick,
   className 
 }: MobileHeaderProps) {
   return (
@@ -28,7 +32,7 @@ export function MobileHeader({
             <Menu className="h-5 w-5" />
           </Button>
         ) : (
-          <Button variant="ghost" size="sm" className="tap-target" onClick={onMenuClick}>
+          <Button variant="ghost" size="sm" className="tap-target" onClick={onSideNavClick}>
             <Menu className="h-5 w-5" />
           </Button>
         )}
@@ -49,6 +53,12 @@ export function MobileHeader({
         <Button variant="ghost" size="sm" className="tap-target" onClick={onProfileClick}>
           <User className="h-5 w-5" />
         </Button>
+
+        {onLogout && (
+          <Button variant="ghost" size="sm" className="tap-target" onClick={onLogout}>
+            <LogOut className="h-5 w-5" />
+          </Button>
+        )}
       </div>
     </header>
   );

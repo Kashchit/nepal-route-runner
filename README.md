@@ -1,73 +1,257 @@
-# Welcome to your Lovable project
+# 🏃‍♂️ Run Nepal - MVP
 
-## Project info
+**Nepal's first localized running and fitness app** - Track your runs through beautiful landscapes, join district leaderboards, and discover heritage routes across Nepal.
 
-**URL**: https://lovable.dev/projects/aeb350b1-b365-47c9-9105-275cf8df1fde
+## 🎯 MVP Features
 
-## How can I edit this code?
+### ✅ **Authentication System**
+- **User Registration & Login** with secure JWT authentication
+- **Protected Routes** - Users must authenticate to access the app
+- **Session Management** - Persistent login with localStorage
+- **Demo Accounts** - Ready-to-use test accounts
 
-There are several ways of editing your application.
+### ✅ **Real Database Integration**
+- **PostgreSQL Database** with Neon DB cloud hosting
+- **16+ Curated Routes** across Nepal's districts
+- **User Profiles** with personal information and preferences
+- **Run Tracking** with detailed statistics
+- **Leaderboards** by district and difficulty
 
-**Use Lovable**
+### ✅ **Interactive Components**
+- **Route Discovery** - Browse and select running routes
+- **District Leaderboards** - Compete with local runners
+- **User Statistics** - Track personal progress and achievements
+- **Real-time Data** - All data fetched from live API endpoints
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/aeb350b1-b365-47c9-9105-275cf8df1fde) and start prompting.
+### ✅ **Modern UI/UX**
+- **Mobile-First Design** - Optimized for mobile devices
+- **Beautiful Animations** - Smooth transitions and loading states
+- **Responsive Layout** - Works on all screen sizes
+- **Nepal-Themed Design** - Cultural elements and local branding
 
-Changes made via Lovable will be committed automatically to this repo.
+## 🚀 Quick Start
 
-**Use your preferred IDE**
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- PostgreSQL database (Neon DB recommended)
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+### 1. Clone & Install
+```bash
+git clone <repository-url>
+cd nepal-route-runner
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+# Install backend dependencies
+cd backend
+npm install
 
-Follow these steps:
+# Install frontend dependencies
+cd ../frontend
+npm install
+```
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+### 2. Database Setup
+```bash
+cd backend
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+# Run database migrations
+npm run migrate
 
-# Step 3: Install the necessary dependencies.
-npm i
+# Seed with sample data
+npm run seed
+```
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### 3. Environment Configuration
+Create `backend/config.env`:
+```env
+DATABASE_URL=your_neon_db_connection_string
+PORT=5001
+JWT_SECRET=your_super_secret_jwt_key
+FRONTEND_URL=http://localhost:8080
+```
+
+### 4. Start the Application
+```bash
+# Start backend (from backend directory)
+npm run dev
+
+# Start frontend (from frontend directory)
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### 5. Access the App
+- **Frontend**: http://localhost:8080
+- **Backend API**: http://localhost:5001
+- **API Health**: http://localhost:5001/health
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## 🗄️ Database Schema
 
-**Use GitHub Codespaces**
+### Core Tables
+- **users** - User profiles and authentication
+- **routes** - Running routes with coordinates and details
+- **user_runs** - Individual run tracking data
+- **leaderboard** - Performance rankings and statistics
+- **achievements** - Gamification system
+- **challenges** - Time-based competitions
+- **notifications** - User notification system
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+### Sample Data
+- **4 Demo Users** with realistic profiles
+- **16 Running Routes** across Nepal's districts
+- **Sample Runs** with timing and statistics
+- **Achievements & Challenges** for engagement
 
-## What technologies are used for this project?
+## 🔐 Authentication
 
-This project is built with:
+### Demo Accounts
+```
+Email: demo@example.com
+Password: password123
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Email: sherpa@example.com  
+Password: password123
 
-## How can I deploy this project?
+Email: jogger@example.com
+Password: password123
+```
 
-Simply open [Lovable](https://lovable.dev/projects/aeb350b1-b365-47c9-9105-275cf8df1fde) and click on Share -> Publish.
+### API Endpoints
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/auth/profile` - Get user profile
 
-## Can I connect a custom domain to my Lovable project?
+## 🗺️ Routes & Features
 
-Yes, you can!
+### Available Routes
+1. **Annapurna Base Camp Trek** (115km, Hard)
+2. **Everest Base Camp Trek** (130km, Expert)
+3. **Pokhara Lakeside Run** (8.5km, Easy)
+4. **Kathmandu Valley Heritage Trail** (12km, Medium)
+5. **Chitwan Jungle Trail** (15km, Medium)
+6. **Lumbini Peace Run** (6km, Easy)
+7. **+ 10 more routes** across different districts
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+### Route Features
+- **Difficulty Levels**: Easy, Medium, Hard, Expert
+- **District Filtering**: Kathmandu, Pokhara, Chitwan, etc.
+- **Route Types**: Trail, Road, Urban, Heritage, Wildlife
+- **Detailed Information**: Distance, elevation, estimated time, highlights, warnings
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+## 📊 Leaderboards
+
+### District Rankings
+- **Kathmandu** - Urban heritage routes
+- **Pokhara** - Lakeside and mountain trails
+- **Chitwan** - Jungle and wildlife routes
+- **Solukhumbu** - High-altitude treks
+- **Kaski** - Annapurna region routes
+
+### Performance Metrics
+- **Total Distance** - Cumulative kilometers
+- **Total Runs** - Number of completed runs
+- **Average Pace** - Speed per kilometer
+- **Best Times** - Personal records per route
+
+## 🛠️ Technical Stack
+
+### Frontend
+- **React 18** with TypeScript
+- **Vite** for fast development
+- **Tailwind CSS** for styling
+- **React Query** for data fetching
+- **React Router** for navigation
+- **Lucide Icons** for UI icons
+
+### Backend
+- **Node.js** with Express.js
+- **PostgreSQL** with Neon DB
+- **JWT** for authentication
+- **bcrypt** for password hashing
+- **Helmet** for security
+- **CORS** for cross-origin requests
+
+### Database
+- **Neon PostgreSQL** - Serverless database
+- **Connection Pooling** for performance
+- **SSL Encryption** for security
+- **Automatic Backups** and scaling
+
+## 📱 Mobile-First Design
+
+### Responsive Features
+- **Mobile Navigation** - Bottom tab navigation
+- **Touch-Friendly** - Large tap targets
+- **Offline-Ready** - Service worker support
+- **Progressive Web App** - Installable on mobile
+
+### UI Components
+- **Route Cards** - Beautiful route previews
+- **Stat Cards** - Performance metrics
+- **Leaderboard Tables** - District rankings
+- **Authentication Forms** - Clean login/register
+- **Loading States** - Smooth user experience
+
+## 🔧 Development Commands
+
+### Backend
+```bash
+npm run dev          # Start development server
+npm run migrate      # Run database migrations
+npm run seed         # Seed sample data
+npm run setup        # Run migrations + seed
+```
+
+### Frontend
+```bash
+npm run dev          # Start development server
+npm run build        # Build for production
+npm run preview      # Preview production build
+```
+
+## 🌟 MVP Highlights
+
+### Investor-Ready Features
+- ✅ **Complete Authentication System**
+- ✅ **Real Database with Sample Data**
+- ✅ **Interactive Route Discovery**
+- ✅ **District-Based Leaderboards**
+- ✅ **User Statistics & Progress Tracking**
+- ✅ **Mobile-First Responsive Design**
+- ✅ **Professional UI/UX**
+- ✅ **Scalable Architecture**
+- ✅ **Production-Ready Code**
+- ✅ **Comprehensive Documentation**
+
+### Business Value
+- **Local Market Focus** - Tailored for Nepal's running community
+- **Cultural Integration** - Heritage routes and local districts
+- **Community Building** - District leaderboards and competitions
+- **Scalable Platform** - Ready for additional features and users
+- **Monetization Ready** - Infrastructure for premium features
+
+## 🚀 Deployment Ready
+
+### Production Setup
+- **Environment Variables** configured
+- **Database Migrations** automated
+- **API Documentation** available
+- **Error Handling** implemented
+- **Security Measures** in place
+
+### Next Steps for Production
+1. **Domain & SSL** setup
+2. **CDN** for static assets
+3. **Monitoring** and analytics
+4. **User Testing** and feedback
+5. **Feature Expansion** based on usage
+
+## 📞 Support
+
+For questions or support:
+- **Email**: support@runnepal.com
+- **Documentation**: [API Docs](./backend/README.md)
+- **Issues**: GitHub Issues
+
+---
+
+**Built with ❤️ for Nepal's running community**

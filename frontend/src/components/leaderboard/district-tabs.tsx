@@ -1,6 +1,6 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Trophy, Medal, Award } from "lucide-react";
+import { Trophy, Medal, Award, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface LeaderboardEntry {
@@ -18,13 +18,15 @@ interface DistrictTabsProps {
   districts: string[];
   leaderboardData: Record<string, LeaderboardEntry[]>;
   onDistrictChange: (district: string) => void;
+  isLoading?: boolean;
 }
 
 export function DistrictTabs({ 
   currentDistrict, 
   districts, 
   leaderboardData, 
-  onDistrictChange 
+  onDistrictChange,
+  isLoading = false
 }: DistrictTabsProps) {
   const getRankIcon = (position: number) => {
     switch (position) {
@@ -40,9 +42,24 @@ export function DistrictTabs({
   };
 
   const LeaderboardList = ({ entries }: { entries: LeaderboardEntry[] }) => (
-    <ScrollArea className="h-[400px] w-full">
-      <div className="space-y-3 p-1">
-        {entries.map((entry, index) => (
+    <ScrollArea className="h-[500px] w-full mobile-scroll">
+      {isLoading ? (
+        <div className="flex items-center justify-center h-40">
+          <div className="text-center">
+            <Loader2 className="h-8 w-8 animate-spin mx-auto mb-4 text-primary" />
+            <p className="text-muted-foreground">Loading leaderboard...</p>
+          </div>
+        </div>
+      ) : entries.length === 0 ? (
+        <div className="flex items-center justify-center h-40">
+          <div className="text-center">
+            <Trophy className="h-8 w-8 mx-auto mb-4 text-muted-foreground" />
+            <p className="text-muted-foreground">No data available</p>
+          </div>
+        </div>
+      ) : (
+        <div className="space-y-3 p-1">
+          {entries.map((entry, index) => (
           <div
             key={entry.id}
             className={cn(
@@ -86,18 +103,19 @@ export function DistrictTabs({
             </div>
           </div>
         ))}
-      </div>
+        </div>
+      )}
     </ScrollArea>
   );
 
   return (
     <Tabs value={currentDistrict} onValueChange={onDistrictChange} className="w-full">
-      <TabsList className="grid w-full grid-cols-4 mb-6">
-        {districts.slice(0, 4).map((district) => (
+      <TabsList className="grid w-full grid-cols-3 mb-6">
+        {districts.slice(0, 3).map((district) => (
           <TabsTrigger 
             key={district} 
             value={district}
-            className="text-xs"
+            className="text-xs tap-target"
           >
             {district}
           </TabsTrigger>
